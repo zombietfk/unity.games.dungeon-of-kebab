@@ -124,8 +124,15 @@ public class Player : Unit {
 
     public float AttackTimer = 0f;
     public float NextAttackTimerMin = 0f;
+    private float cRegenHpTimer = 0f;
 
     void Update () {
+	//regen hp
+	cRegenHpTimer += Time.deltaTime;
+	if (cRegenHpTimer > 12f && this.Hp < this.CalculateMaxHp()) {
+	    cRegenHpTimer = 0f;
+	    this.Hp += this.Strength;
+	}
         //check state
         AttackTimer += Time.deltaTime;
         if (IsDead()){
