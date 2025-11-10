@@ -9,6 +9,8 @@ Half proud, half ashamed of this project, it has all the original bugs and warts
 
 *Difficulty was lowered as the original was too damn hard for me now, and some unused UI elements were removed, but everything else has remained the same! See 1.1.0 Release notes for details
 
+Longplay of the whole game available [here](https://youtu.be/wmFogC0KJIY?si=bdaR_rZiDIjBmRjY)! (45 minutes)
+
 # Game Manual
 ## Stats
 As you kill enemies, you will gain experience. It is tracked by the yellow bar in the UI. Every time you level up, you gain TWO points to spend. You additionally begin the game with 3 points.
