@@ -120,7 +120,7 @@ public class SuperGrork : Unit {
         Animator a = this.GetComponentInChildren<Animator>() as Animator;
         a.Play("BatAttack");
         Weapon w = this.Equipment.Get("Left").GetComponent<Weapon>() as Weapon;
-        u.TakeDamage(w.RollDice()+2);
+        u.TakeDamage(w.RollDice()+10);
         this.InputLocked = false;
     }
 

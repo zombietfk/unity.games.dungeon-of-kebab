@@ -8,6 +8,8 @@ public class Demon : Unit {
     [SerializeField]
     private Player Player;
     [SerializeField]
+    private Pickup RainbowKeyPickup;
+    [SerializeField]
     private Weapon Fist;
     [SerializeField]
     private SpellProjectile FireSpell;
@@ -22,7 +24,7 @@ public class Demon : Unit {
         if (this.Player == null) {
             this.Player = GameObject.Find("Player").GetComponent<Player>() as Player;
         }
-        this.Hp = CalculateMaxHp();
+        this.Hp = CalculateMaxHp() + BonusHp;
         this.Mp = CalculateMaxMp();
         this.Equipment = new EquipmentModel(new EquippedEntity[] { new EquippedEntity("Left", Fist) }, this);
     }
@@ -102,6 +104,15 @@ public class Demon : Unit {
         if (IsDead()) {
             Animator a = this.GetComponentInChildren<Animator>() as Animator;
             DeadFlag = true;
+            Instantiate(
+                RainbowKeyPickup,
+                new Vector3(
+                    this.transform.position.x,
+                    this.transform.position.y,
+                    this.transform.position.z
+                ),
+                Quaternion.Euler(new Vector3(40,90,0))
+            );
             a.Play("SwirlyDeath");
             return;
         }

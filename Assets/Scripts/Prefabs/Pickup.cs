@@ -10,6 +10,12 @@ public class Pickup : MonoBehaviour {
     private string Name;
     [SerializeField]
     private Hand Hand;
+    
+    void Start() {
+      if(ItemFactory == null) ItemFactory = GameObject.Find("ItemFactory").GetComponent<ItemFactory>();
+      if(Hand == null) Hand = GameObject.Find("Hand").GetComponent<Hand>();
+    }
+    
 
     public Hand GetHand() {
         return this.Hand;

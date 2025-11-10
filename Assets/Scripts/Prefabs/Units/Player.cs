@@ -131,8 +131,10 @@ public class Player : Unit {
 	cRegenHpTimer += Time.deltaTime;
 	if (cRegenHpTimer > 12f && this.Hp < this.CalculateMaxHp()) {
 	    cRegenHpTimer = 0f;
-	    this.Hp += 1;
+	    this.Hp += Mathf.CeilToInt(this.Strength / 6);
 	    HPBar.UpdateBar(this.Hp,this.CalculateMaxHp());
+	    this.Mp += Mathf.CeilToInt(this.Intelligence / 4);
+	    MPBar.UpdateBar(this.Mp,this.CalculateMaxMp());
 	}
         //check state
         AttackTimer += Time.deltaTime;
@@ -213,7 +215,6 @@ public class Player : Unit {
             //if this is the hit that killed the unit
             if (notDeadFlag  && u.IsDead()) {
                 this.Experience += u.CalculateEXPBounty();
-                
             }
         }
     }

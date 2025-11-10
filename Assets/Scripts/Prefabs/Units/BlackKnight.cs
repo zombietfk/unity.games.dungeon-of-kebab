@@ -19,7 +19,7 @@ public class BlackKnight : Unit {
     private bool DeadFlag = false;
 
     void Start() {
-        this.Hp = CalculateMaxHp();
+        this.Hp = CalculateMaxHp() + BonusHp;
         this.Mp = CalculateMaxMp();
         if (this.Player == null) {
             this.Player = GameObject.Find("Player").GetComponent<Player>() as Player;
@@ -160,7 +160,7 @@ public class BlackKnight : Unit {
         Animator a = this.GetComponentInChildren<Animator>() as Animator;
         a.Play("BatAttack");
         Weapon w = this.Equipment.Get("Left").GetComponent<Weapon>() as Weapon;
-        u.TakeDamage(w.RollDice()+2);
+        u.TakeDamage(w.RollDice()+5);
         this.InputLocked = false;
     }
 

@@ -72,9 +72,11 @@ public class EquipmentModel {
 public abstract class Unit : MonoBehaviour, Freezable, Enrageable {
     [SerializeField]
     public float Hp = 0;
+    [SerializeField]
+    public float BonusHp = 0;
 
     public float CalculateMaxHp() {
-        return this.Strength * 5;
+        return this.Strength * 5 + BonusHp;
     }
 
     [SerializeField]
@@ -305,7 +307,7 @@ public abstract class Unit : MonoBehaviour, Freezable, Enrageable {
     public void Enrage(float t) {
         this.isEnraged = true;
         this.LoseEnragedAfter = t;
-        this.GetComponentInChildren<MeshRenderer>().material.color = new Color(1f, 0.4f, 0f);
+        this.GetComponentInChildren<MeshRenderer>().material.color = new Color(1f, 0f, 0f);
         this.StartCoroutine(Unrage());
     }
 }

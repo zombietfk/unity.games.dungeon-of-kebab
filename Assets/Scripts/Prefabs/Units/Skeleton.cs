@@ -10,6 +10,8 @@ public class Skeleton : Unit {
     public float TickActionsEvery = 1f;
     private float TickActionsCurrentTimer = 0;
     private bool DeadFlag = false;
+    [SerializeField]
+    public int BonusDamage = 3;
 
     void Start() {
         if (this.Player == null) {
@@ -44,7 +46,7 @@ public class Skeleton : Unit {
         float TickRequired = TickActionsEvery;
 
         if (this.IsEnraged()) {
-            TickRequired = 0.33f;
+            TickRequired = 0.5f;
         }
 
         this.TickActionsCurrentTimer += Time.deltaTime;
@@ -108,7 +110,7 @@ public class Skeleton : Unit {
         Animator a = this.GetComponentInChildren<Animator>() as Animator;
         a.Play("BatAttack");
         Weapon w = this.Equipment.Get("Left").GetComponent<Weapon>() as Weapon;
-        u.TakeDamage(w.RollDice()+2);
+        u.TakeDamage(w.RollDice()+BonusDamage);
         this.InputLocked = false;
     }
 

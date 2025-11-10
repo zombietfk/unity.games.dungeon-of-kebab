@@ -22,6 +22,7 @@ public class ItemFactory : MonoBehaviour
     public Item Level2BrassKey2;
     public Item Level3Key;
     public Item Level3Key2;
+    public Item RainbowKey;
 
     //Special Items!
     public Item Map;
