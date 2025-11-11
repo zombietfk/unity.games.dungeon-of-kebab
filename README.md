@@ -1,4 +1,5 @@
-# EOB-like-dungeon-crawl
+# eob-like-dungeon-crawl - Dungeon Of Kebab!
+
 A Unity project, mimicking the old eye of the beholder games!
 
 My first ever unity project, originally made in unity 5.1 in 2017
