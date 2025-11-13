@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler {
-
-    [SerializeField]
+public class ItemSlot : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
+{
     private GameObject Item;
-
+    
     [SerializeField]
     private Unit Owner;
 
@@ -57,28 +56,59 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler {
         return this.Item;
     }
 
-    /**
-     * OnPointerClick(PointerEventData e)
-     * @param PointerEventData e - event data
-     * Swap the item with whatever is in the associated Hand GameObject on left click
-     * Attempt to use the item on a right click
-     */
-    virtual public void OnPointerClick(PointerEventData e){
-        if (e.button == PointerEventData.InputButton.Right) {
-            GameObject was = GetItem();
-            DetatchItems();
-            Consumable wasAsCosumable = was.GetComponent<Consumable>() as Consumable;
-            if (wasAsCosumable != null) {
-                //consume+destory
-                wasAsCosumable.ConsumeEffectOn(Owner);
+    private float pointerDownTime;
+    private bool longPressTriggered = false;
+
+    [SerializeField] private float longPressThreshold = 0.5f; // seconds
+
+    public virtual void OnPointerClick(PointerEventData e) {
+        
+    }
+
+    public void OnPointerDown(PointerEventData e) {
+        longPressTriggered = false;
+        pointerDownTime = Time.time;
+        StartCoroutine(CheckLongPress());
+    }
+
+    public void OnPointerUp(PointerEventData e) {
+        if (e.button == PointerEventData.InputButton.Right && !longPressTriggered) {
+            HandleRightClick();
+        } else if (e.button == PointerEventData.InputButton.Left) {
+            HandleLeftClick();
+        }
+        StopAllCoroutines();
+    }
+
+    private IEnumerator CheckLongPress() {
+        while (true) {
+            if (Time.time - pointerDownTime > longPressThreshold) {
+                longPressTriggered = true;
+                HandleRightClick();
+                break;
+            }
+            yield return null;
+        }
+    }
+
+    private void HandleRightClick() {
+        GameObject was = GetItem();
+        DetatchItems();
+	if (was != null) {
+            Consumable wasAsConsumable = was.GetComponent<Consumable>() as Consumable;
+            if (wasAsConsumable != null) {
+                wasAsConsumable.ConsumeEffectOn(Owner);
                 Destroy(was);
-            } else {
+            }
+            else {
                 SetItem(was);
                 AttachItem(was);
             }
-        } else if (e.button == PointerEventData.InputButton.Left) {
-            SwapItemWithHeld();
-        }
+	}
+    }
+
+    private void HandleLeftClick() {
+        SwapItemWithHeld();
     }
 
     private void SwapItemWithHeld() {

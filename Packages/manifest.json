@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.multiplayer.center": "1.0.0",
     "com.unity.toolchain.linux-x86_64": "2.0.11",
     "com.unity.ugui": "2.0.0",
